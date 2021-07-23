@@ -1,0 +1,8 @@
+# arm module groups for genkernel initramfs auto-loading
+# (extending defaults/modules_load)
+
+# Hardware (IDE/SCSI/SATA/NVMe)
+MODULES_SATA+=" ahci_xgene"
+
+# Hardware (Network)
+MODULES_NET+=" xgene_enet"

@@ -1,0 +1,2924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 9.0.2" />
+<title>GENKERNEL(8)</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>GENKERNEL(8)</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_name">NAME</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>genkernel - the Gentoo Linux automatic kernel compiler.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>genkernel</strong> [options&#8230;] action</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">INTRODUCTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Genkernel is designed to allow users who are not previously used to
+compiling a kernel to use a similar setup to that one that is used on
+the Gentoo LiveCDs which auto-detects your hardware.</p></div>
+<div class="paragraph"><p>Some users may also be interested in using genkernel for hardware which
+requires initialization and a working kernel before it can be booted
+because genkernel also automatically compiles your kernel modules,
+allowing hardware which needs to be loaded with module parameters to be
+used.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage">USAGE</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>All that is needed to run genkernel is just <code>genkernel</code> with an
+action and any flags you might need:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code># genkernel --menuconfig --no-clean --no-install all</code></pre>
+</div></div>
+<div class="paragraph"><p>This would produce a kernel, asking you what how to configure it to
+your desire, leaving alone any existing compiled object files, but not
+installing anything.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_actions">ACTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>An action tells genkernel what you want it to do  -  the following
+actions are supported:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>all</strong>
+</dt>
+<dd>
+<p>
+    Build all steps - the kernel, modules, and the ramdisk.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>bzImage</strong>
+</dt>
+<dd>
+<p>
+    Build only the kernel.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>initramfs</strong>
+</dt>
+<dd>
+<p>
+    Build only the ramdisk/initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>kernel</strong>
+</dt>
+<dd>
+<p>
+    Build only the kernel and the modules.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ramdisk</strong>
+</dt>
+<dd>
+<p>
+    Build only the ramdisk/initramfs.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Genkernel supports the following options which alter its behaviour.
+Certain options have <strong>--no-</strong> variants which do the opposite thing.
+You can specify your options in any order.</p></div>
+<div class="sect2">
+<h3 id="_configuration_options">CONFIGURATION OPTIONS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--config</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+    Genkernel configuration file to use.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_debugging_options">DEBUGGING OPTIONS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--loglevel</strong>=&lt;0-5&gt;
+</dt>
+<dd>
+<p>
+    This controls the out verbosity level of genkernel output - if
+    this is set to 0, minimal debugging is done; if this is set to 5
+    as much output as possible is given.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--logfile</strong>=&lt;outfile&gt;
+</dt>
+<dd>
+<p>
+    This outputs debugging data to the file &lt;outfile&gt;. By default
+    this is <em>/var/log/genkernel.log</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>color</strong>
+</dt>
+<dd>
+<p>
+    Turns on, or off, output in color using escape sequences.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>cleanup</strong>
+</dt>
+<dd>
+<p>
+    Turns on or off the full post-run cleanup for debug purposes.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_configuration">KERNEL CONFIGURATION</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>menuconfig</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run "make menuconfig" after running "make oldconfig".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>nconfig</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run "make nconfig" after running "make oldconfig".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>gconfig</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run "make gconfig" after "make oldconfig".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>xconfig</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run "make xconfig" after "make oldconfig".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>save-config</strong>
+</dt>
+<dd>
+<p>
+    Saves, or does not save the kernel configuration to <em>/etc/kernels</em>
+    if the kernel is successfully compiled.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>bcache</strong>
+</dt>
+<dd>
+<p>
+    Adds, or skip adding block layer cache (bcache) support to kernel
+    configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>hyperv</strong>
+</dt>
+<dd>
+<p>
+    Adds, or skip adding Microsoft Hyper-V support to kernel configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--microcode</strong>[=&lt;all|amd|intel&gt;]
+</dt>
+<dd>
+<p>
+    Adds early microcode loading support for all, only AMD or Intel processors
+    to kernel configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--no-microcode</strong>
+</dt>
+<dd>
+<p>
+    Do not add early microcode loading support to kernel configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>virtio</strong>
+</dt>
+<dd>
+<p>
+    Adds, or skip adding VirtIO support to kernel configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-append-localversion</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Appends value to genkernel&#8217;s <strong>KERNEL_LOCALVERSION</strong> option (see below).
+    The idea is to use this option to allow to easily build a new revision
+    with own kernel binary, initramfs and modules directory without losing
+    default <strong>KERNEL_LOCALVERSION</strong> value.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-localversion</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set kernel option <strong>LOCALVERSION</strong>. Use special value <strong>UNSET</strong> to
+unset any already set <strong>LOCALVERSION</strong>. The following placeholders are
+available:
+</p>
+<div class="hdlist"><table>
+<tr>
+<td class="hdlist1">
+<strong>%%ARCH%%</strong>
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Will be replaced with genkernel arch value, for example <em>x86_64</em>.
+</p>
+</td>
+</tr>
+</table></div>
+<div class="paragraph"><p><strong>LOCALVERSION</strong> is only allowed to contain characters like <em>a-z</em> or <em>A-Z</em>,
+<em>0-9</em>, <em>_</em>, <em>.</em> and <em>-</em>.</p></div>
+<div class="paragraph"><p>By default, <strong>LOCALVERSION</strong> will be set to <em>-%%ARCH%%</em>.</p></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_compilation">KERNEL COMPILATION</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>clean</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run, "make clean" before compilation  -  this
+    erases any compiled object files in the kernel source tree but
+    does not have an impact on the kernel configuration.  Specifying
+    <strong>--no-clean</strong> implies <strong>--no-mrproper</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>mrproper</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run, "make mrproper" before compilation - this
+    erases both any compiled object files in the kernel source tree
+    as well as the kernel configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>install</strong>
+</dt>
+<dd>
+<p>
+    Installs,  or does not install the kernel to <em>/boot</em> after building.
+    The default is  <strong>--install</strong>.   If MOUNTBOOT is set in
+    <em>/etc/genkernel.conf</em>  then <em>/boot</em> will be automatically mounted if
+    it is not already mounted before the ramdisk and kernel images
+    are copied over.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>symlink</strong>
+</dt>
+<dd>
+<p>
+Manages,  or does not manage, symlinks in <em>/boot</em> like the manual
+kernel "make install" process does. A <em>kernel</em> (or, depending on
+options, <em>kernelz</em>) symlink will link to the most recently built
+kernel image and a <em>kernel.old</em> (or <em>kernelz.old</em>) symlink will link
+to the second most recently built image, if one exists. Similar
+symlinks (with and without <em>.old</em> suffix) are managed for initramfs and
+System.map. The corresponding work products (i.e., the actual kernel
+and initramfs images, and System.map) are also managed accordingly.
+</p>
+<div class="paragraph"><p>The symlink name can be controlled via <strong>--kernel-symlink-name</strong> and/or
+<strong>--initramfs-symlink-name</strong> option.</p></div>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Specifying <strong>--symlink</strong> does nothing unless <strong>--install</strong> is also
+specified.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>oldconfig</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run, "make oldconfig" before compilation.  Specifying
+    <strong>--oldconfig</strong> implies <strong>--no-clean</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>splash</strong>
+</dt>
+<dd>
+<p>
+    Installs, or not, framebuffer splash support into initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>ramdisk-modules</strong>
+</dt>
+<dd>
+<p>
+    Copies or does not copy configured modules to the ramdisk.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>all-ramdisk-modules</strong>
+</dt>
+<dd>
+<p>
+    Copies or does not copy all kernel modules to the initrd.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>module-rebuild</strong>
+</dt>
+<dd>
+<p>
+    Runs, or does not run "emerge --ignore-default-opts --buildpkg=n --usepkg=n --quiet-build=y @module-rebuild"
+    to build out-of-tree modules when possible, i.e. when non-static
+    kernel and modules will be build, installed,
+    <strong>--kernel-modules-prefix</strong> is not set, <em>/var/lib/module-rebuild/moduledb</em> exists
+    and is not empty.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Command can be customized using <em>--module-rebuild-cmd</em> command-line
+argument or <em>MODULEREBUILD_CMD</em> in <em>/etc/genkernel.conf</em>.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--module-rebuild-cmd</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Overwrite default <strong>--module-rebuild</strong> command.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--callback</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Run the specified arguments in the current environment after the
+    kernel and modules have been compiled.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>static</strong>
+</dt>
+<dd>
+<p>
+    Builds, or does not build a monolithic kernel without any modules on
+    any initial ramdisks.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_kernel_locations">KERNEL LOCATIONS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--kerneldir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    This specifies the location of the kernel sources;  the default
+    is <em>/usr/src/linux</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-config</strong>=&lt;file|default&gt;
+</dt>
+<dd>
+<p>
+    This specifies a kernel configuration file to use for compilation;
+    by default genkernel uses the config from the previous
+    build of the same kernel version or a default kernel config if
+    there isn&#8217;t a previous config.
+    Use the special value <em>default</em> to force usage of default kernel
+    config.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-modules-prefix</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Prefix to kernel module destination, modules will be installed in
+    <em>&lt;prefix&gt;/lib/modules</em>.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_low_level_compilation_options">LOW-LEVEL COMPILATION OPTIONS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--cross-compile</strong>=&lt;target triplet&gt;
+</dt>
+<dd>
+<p>
+    Target triple (i.e. aarch64-linux-gnu) to build for. Only needed
+    when the system running genkernel has a different architecture like
+    the system which should boot the created kernel/initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-as</strong>=&lt;assembler&gt;
+</dt>
+<dd>
+<p>
+    Assembler to use for the kernel compilation.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-cc</strong>=&lt;compiler&gt;
+</dt>
+<dd>
+<p>
+    Compiler to use for the kernel compilation (e.g. distcc).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-ld</strong>=&lt;linker&gt;
+</dt>
+<dd>
+<p>
+    Linker to use for the kernel compilation.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-make</strong>=&lt;makeprg&gt;
+</dt>
+<dd>
+<p>
+    GNU Make to use for the kernel compilation.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-target</strong>=&lt;t&gt;
+</dt>
+<dd>
+<p>
+    Override default make target (bzImage), note that values
+    like <strong>--kernel-target=</strong> are also valid (useful for Xen
+    based kernel sources).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-binary</strong>=&lt;path&gt;
+</dt>
+<dd>
+<p>
+    Override default kernel binary path (arch/foo/boot/bar).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-outputdir</strong>=&lt;path&gt;
+</dt>
+<dd>
+<p>
+    Save output files outside the source tree. This should be used rather than
+    KBUILD_OUTPUT when you wish to place kernel objects outside of the source
+    tree (eg because cannot write to that directory as the user genkernel is
+    running as).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-as</strong>=&lt;assembler&gt;
+</dt>
+<dd>
+<p>
+    Assembler to use for utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-cflags</strong>=&lt;cflags&gt;
+</dt>
+<dd>
+<p>
+    C compiler flags used to compile utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-cc</strong>=&lt;compiler&gt;
+</dt>
+<dd>
+<p>
+    C Compiler to use for utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-cxx</strong>=&lt;compiler&gt;
+</dt>
+<dd>
+<p>
+    C++ Compiler to use for utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-ld</strong>=&lt;linker&gt;
+</dt>
+<dd>
+<p>
+    Linker to use for utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--utils-make</strong>=&lt;makeprog&gt;
+</dt>
+<dd>
+<p>
+    GNU Make to use for utilities.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--makeopts</strong>=&lt;makeopts&gt;
+</dt>
+<dd>
+<p>
+    GNU Make options such as -j2, etc.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>mountboot</strong>
+</dt>
+<dd>
+<p>
+    Mount, or not, BOOTDIR automatically if mountable.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--bootdir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Set the location of the boot-directory, default is <em>/boot</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--modprobedir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Set the location of the modprobe.d-directory, default is <em>/etc/modprobe.d</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>nice</strong>[=&lt;niceness&gt;]
+</dt>
+<dd>
+<p>
+    Runs the kernel make at the default niceness (reduction in priority) of
+    10, or in the case of <strong>--no-nice</strong>, runs the kernel make at normal priority.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_initialization">INITIALIZATION</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--splash</strong>=&lt;theme&gt;
+</dt>
+<dd>
+<p>
+    Enable framebuffer splash using &lt;theme&gt;.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--splash-res</strong>=&lt;resolutions&gt;
+</dt>
+<dd>
+<p>
+    Select gensplash resolutions to include.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>splash</strong>=&lt;theme&gt;
+</dt>
+<dd>
+<p>
+    If the extra argument is specified,  splash is forced using
+    &lt;theme&gt;  rather than the default theme specified in your splash
+    configuration. If <strong>--no-splash</strong> is specified, then splash is disabled.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--do-keymap-auto</strong>
+</dt>
+<dd>
+<p>
+    Force keymap selection at boot.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>keymap</strong>
+</dt>
+<dd>
+<p>
+    Enables or disables keymap selection at boot.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>lvm</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes LVM support.
+    When enabled, this will compile LVM for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>mdadm</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes mdadm support.
+    When enabled, this will compile mdadm for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--mdadm-config</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+    Use &lt;file&gt; as configfile for MDADM.
+    By default the ramdisk will be built <strong>without</strong> an <em>mdadm.conf</em> and
+    will auto-detect arrays during boot-up.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>microcode-initramfs</strong>
+</dt>
+<dd>
+<p>
+    Prepends, or do not prepend ucode(s) to the initramfs.
+    But only when kernel configuration does support early microcode loading.
+    See <strong>--microcode</strong> option to auto-update kernel configuration.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Embedding microcode updates into initramfs is <strong>deprecated</strong> when
+system is able to load multiple initramfs.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>dmraid</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes DMRAID support.
+    When enabled, this will compile dmraid for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>nfs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes NFS support.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>e2fsprogs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes e2fsprogs.
+    When enabled, this will compile e2fsprogs for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>xfsprogs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes xfsprogs.
+    When enabled, this will compile xfsprogs for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>zfs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes ZFS support.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>btrfs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes Btrfs support.
+    When enabled, this will compile btrfs-progs for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>multipath</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes Multipath support.
+    When enabled, this will compile multipath-tools for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>iscsi</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes iSCSI support.
+    When enabled, this will compile open-iscsi for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>sandbox</strong>
+</dt>
+<dd>
+<p>
+    Enables or disables sandbox-ing when building initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>ssh</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes SSH (dropbear) support for remote LUKS keys.
+    When enabled, this will compile dropbear for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--ssh-authorized-keys-file</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+    Specifies a user created authorized_keys file. By default genkernel
+    will use <em>/etc/dropbear/authorized_keys</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--ssh-host-keys</strong>=&lt;create|create-from-host|runtime&gt;
+</dt>
+<dd>
+<p>
+    When set to <strong>create</strong>, which is the default value, genkernel will embed
+    SSH host keys from <em>/etc/dropbear</em> and will create those keys when missing.
+    When set to <strong>create-from-host</strong>, genkernel will embed SSH host keys from
+    <em>/etc/dropbear</em> but will create those keys from <em>/etc/ssh</em> when missing
+    (not recommended for security reasons).
+    When set to <strong>runtime</strong>, genkernel will not embed any SSH host key in
+    initramfs and dropbear will generate needed host key at runtime (<code>dropbear -R</code>).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--boot-font</strong>=&lt;current|&lt;file&gt;|none&gt;
+</dt>
+<dd>
+<p>
+    When set to <strong>current</strong>, genkernel will use "setfont" to dump and embed
+    current active console font into initramfs.
+    When set to a <strong>PC Screen Font file</strong>, genkernel will embed that font
+    into initramfs.
+    When set to <strong>none</strong>, genkernel will not embed any font file in initramfs.
+    In case a font was embedded into initramfs, genkernel will load that
+    font early on boot. See <strong>gk.bootfont.disabled</strong> kernel parameter for
+    disabling that feature at runtime.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--bootloader</strong>=&lt;grub|grub2&gt;
+</dt>
+<dd>
+<p>
+    Add new kernel to GRUB or GRUB2 configuration.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--linuxrc</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+    Use &lt;file&gt; for the linuxrc instead of the genkernel linuxrc.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--busybox-config</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+    Specifies a user created busybox config.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--genzimage</strong>
+</dt>
+<dd>
+<p>
+    Make and install kernelz image from <em>arch/powerpc/boot/zImage.initrd</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>luks</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes LUKS support.
+    When enabled, this will compile cryptsetup for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>gpg</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes support for GnuPG 1.x, the portable standalone branch
+    of GnuPG. A key can be made from
+    <code>gpg --symmetric -o /path/to/LUKS-key.gpg /path/to/LUKS-key</code> .
+    After that, re-point the <strong>root_key</strong> argument to the new .gpg file.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>b2sum</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes b2sum in the initramfs.
+    When enabled, this will compile coreutils' b2sum for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>busybox</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes busybox in the initramfs.
+    When enabled, this will compile busybox for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>unionfs</strong>
+</dt>
+<dd>
+<p>
+    Includes or excludes support for unionfs.
+    When enabled, this will compile unionfs-fuse for you.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>netboot</strong>
+</dt>
+<dd>
+<p>
+    Creates or does not create a self-contained env in the initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--real-root</strong>=&lt;foo&gt;
+</dt>
+<dd>
+<p>
+    Specify a default for <strong>real_root</strong>= kernel option which will be
+    embedded into initramfs.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_internals">INTERNALS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--cachedir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Override the default cache location.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--check-free-disk-space-bootdir</strong>=&lt;MB&gt;
+</dt>
+<dd>
+<p>
+    When set to a non-zero value, genkernel will check early on start for
+    specified amount of free disk space in megabyte in <strong>BOOTDIR</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--check-free-disk-space-kerneloutputdir</strong>=&lt;MB&gt;
+</dt>
+<dd>
+<p>
+    When set to a non-zero value, genkernel will check early on start for
+    specified amount of free disk space in megabyte in <strong>KERNEL_OUTPUTDIR</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>clear-cachedir</strong>
+</dt>
+<dd>
+<p>
+    Clears or skips clearing all files in cache location on genkernel start.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--tmpdir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Sets genkernel&#8217;s temporary working directory to &lt;dir&gt;. By default, a
+    directory below <em>/var/tmp/genkernel</em> will be used.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>postclear</strong>
+</dt>
+<dd>
+<p>
+    Clears or skips clearing all tmp files and caches after genkernel has run.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_output_settings">OUTPUT SETTINGS</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--initramfs-filename</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set initramfs filename which will be used when initramfs will be installed
+into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option). Please see
+<strong>--kernel-filename</strong> option for available placeholders and restrictions.
+</p>
+<div class="paragraph"><p>By default, initramfs filename will be set to <em>initramfs-%%KV%%.img</em>.</p></div>
+</dd>
+<dt class="hdlist1">
+<strong>--initramfs-symlink-name</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set initramfs symlink name which will be used when initramfs will be
+installed into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option) and <strong>--symlink</strong>
+option is given. Please see <strong>--kernel-filename</strong> option for available
+placeholders and restrictions.
+</p>
+<div class="paragraph"><p>By default, initramfs symlink name will be set to <em>initramfs</em>.</p></div>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Initramfs filename and initramfs symlink name must be different.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--minkernpackage</strong>=&lt;file&gt;
+</dt>
+<dd>
+<p>
+Archive file created using tar containing kernel and initramfs.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">No modules outside of the initramfs will be included!</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--modulespackage</strong>=&lt;archive&gt;
+</dt>
+<dd>
+<p>
+    Archive file created using tar containing modules after the callbacks
+    have run.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kerncache</strong>=&lt;archive&gt;
+</dt>
+<dd>
+<p>
+    Archive file created using tar containing kernel binary, content of
+    <em>/lib/modules</em> and the kernel config after the callbacks have run.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-config-filename</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set the kernel config filename used by <strong>--save-config</strong>. Please see
+<strong>--kernel-filename</strong> option for available placeholders and restrictions.
+</p>
+<div class="paragraph"><p>By default, kernel config filename will be set to <em>kernel-config-%%KV%%</em>.</p></div>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-filename</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set kernel filename which will be used when kernel will be installed
+into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option). The following placeholders
+are available:
+</p>
+<div class="hdlist"><table>
+<tr>
+<td class="hdlist1">
+<strong>%%ARCH%%</strong>
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Will be replaced with genkernel arch value, for example <em>x86_64</em>.
+</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<strong>%%KV%%</strong>
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Will be replaced with kernel version, for example <em>5.2.3-gentoo</em>.
+</p>
+</td>
+</tr>
+</table></div>
+<div class="paragraph"><p>Kernel filename is only allowed to contain characters like <em>a-z</em> or <em>A-Z</em>,
+<em>0-9</em>, <em>_</em>, <em>.</em> and <em>-</em>.</p></div>
+<div class="paragraph"><p>By default, kernel name will be set to <em>vmlinuz-%%KV%%</em>.</p></div>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">When setting a custom kernel name make sure that your bootloader and
+tools like <strong>kexec</strong> when used are recognizing your custom kernel name.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>kernel-sources</strong>
+</dt>
+<dd>
+<p>
+    This option is only valid if kerncache is defined If there is a
+    valid kerncache no checks will be made against a kernel source
+    tree.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--kernel-symlink-name</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set kernel symlink name which will be used when kernel will be installed
+into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option) and <strong>--symlink</strong> option is
+given. Please see <strong>--kernel-filename</strong> option for available placeholders
+and restrictions.
+</p>
+<div class="paragraph"><p>By default, kernel symlink name will be set to <em>kernel</em>.</p></div>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Kernel filename and kernel symlink name must be different.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--systemmap-filename</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set System.map filename which will be used when kernel will be installed
+into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option). Please see
+<strong>--kernel-filename</strong> option for available placeholders and restrictions.
+</p>
+<div class="paragraph"><p>By default, System.map filename will be set to <em>System.map-%%KV%%</em>.</p></div>
+</dd>
+<dt class="hdlist1">
+<strong>--systemmap-symlink-name</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+Set System.map symlink name which will be used when kernel will be
+installed into <strong>BOOTDIR</strong> (implies <strong>--install</strong> option) and <strong>--symlink</strong>
+option is given. Please see <strong>--kernel-filename</strong> option for available
+placeholders and restrictions.
+</p>
+<div class="paragraph"><p>By default, System.map symlink name will be set to <em>System.map</em>.</p></div>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">System.map filename and System.map symlink name must be different.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>--initramfs-overlay</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Directory structure to include in the initramfs, only available
+    on &gt;=2.6 kernels.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>firmware</strong>
+</dt>
+<dd>
+<p>
+    Enable or disables copying of firmware into initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--firmware-dir</strong>=&lt;dir&gt;
+</dt>
+<dd>
+<p>
+    Specify directory to copy firmware from (defaults to <em>/lib/firmware</em>).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--firmware-files</strong>=&lt;files&gt;
+</dt>
+<dd>
+<p>
+    Specifies specific firmware files to copy. This overrides <strong>--firmware-dir</strong>.
+    For multiple files, separate the filenames with a comma.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>firmware-install</strong>
+</dt>
+<dd>
+<p>
+    Enable or disables installation of firmware onto root filesystem.
+    Please note this is deprecated, and installing
+    <strong>sys-kernel/linux-firmware</strong> should be preferred instead.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>integrated-initramfs</strong>
+</dt>
+<dd>
+<p>
+    Builds or does not build the generated initramfs into the kernel instead
+    of keeping it as a separate file.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>wrap-initrd</strong>
+</dt>
+<dd>
+<p>
+    Wrap initramfs using mkimage for u-boot boots. Please note that only
+    certain compression types are supported by mkimage (see manpage).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>compress-initramfs</strong>
+</dt>
+<dd>
+<p>
+    Compresses or does not compress the generated initramfs.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--</strong>[<strong>no-</strong>]<strong>compress-initrd</strong>
+</dt>
+<dd>
+<p>
+    Deprecated alias for <strong>--</strong>[<strong>no-</strong>]<strong>compress-initramfs</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--compress-initramfs-type</strong>=&lt;arg&gt;
+</dt>
+<dd>
+<p>
+    Compression type for initramfs (best, bzip2, fastest, gzip, lz4, lzma,
+    lza, xz, zstd).
+</p>
+<div class="paragraph"><p><strong>best</strong> will select the algorithm providing best compression
+from those selected in your kernel configuration.</p></div>
+<div class="paragraph"><p><strong>fastest</strong> will select the algorithm providing fastest decompression
+from those selected in your kernel configuration.</p></div>
+</dd>
+<dt class="hdlist1">
+<strong>--strip</strong>=&lt;all|kernel|modules|none&gt;
+</dt>
+<dd>
+<p>
+    Strip debug symbols from none, all, installed kernel (obsolete) or
+    modules (default).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>--no-strip</strong>
+</dt>
+<dd>
+<p>
+    Alias for <strong>--strip=none</strong>.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ramdisk_initramfs_options">RAMDISK/INITRAMFS OPTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following options are some of those available to be passed as kernel
+parameters from the bootloader. Genkernel will not handle this
+operation, please refer to your bootloader documentation for a more
+complete description of each.</p></div>
+<div class="paragraph"><p>This listing is intended to cover most of the options recognized by the
+ramdisk/initramfs scripts, as well as some of the common options
+recognized by the kernel itself.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>root</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Specifies the device node of the root filesystem to mount.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>real_root</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Legacy kernel parameter from kernel-2.4 initrd.
+    Does the same as <strong>root</strong>=, which should be used in its place.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>crypt_root</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    This specifies the device encrypted by LUKS, which contains the
+    root filesystem to mount.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>crypt_swap</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    This specifies the swap device encrypted by LUKS.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>root_key</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    In case your root is encrypted with a key, you can use a device
+    like a  usb pen to store the key.  This value should be the key
+    path relative to the mount point.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>root_keydev</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    If necessary provide the name of the device that carries the
+    root_key.   If unset while using root_key, it will automatically
+    look for the device in every boot.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>root_keydev_fstype</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Used filesystem for <strong>root_keydev</strong>. See <strong>rootfstype</strong> for more details.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>root_trim</strong>=(yes|no)
+</dt>
+<dd>
+<p>
+    Enables TRIM support for a LUKS-based root device.  Only useful
+    with SSD setups.  Have a look at <em>https://en.wikipedia.org/wiki/TRIM</em>
+    for more information.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>swap_key</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Same as root_key for swap.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>swap_keydev</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Same as root_keydev for swap.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>swap_keydev_fstype</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Used filesystem for <strong>swap_keydev</strong>. See <strong>rootfstype</strong> for more details.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>crypt_silent</strong>
+</dt>
+<dd>
+<p>
+    Set this to silent all the output related to the cryptographic
+    software,  and in case your encrypted device isn&#8217;t open with the
+    key, it opens a shell in the initrd quietly.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>dodmraid</strong>[=&lt;&#8230;&gt;]
+</dt>
+<dd>
+<p>
+    Activate Device-Mapper RAID and (optionally) pass arguments to it.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>init</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Override location of init script, default is "/sbin/init".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>real_init</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Legacy kernel parameter from kernel-2.4 initrd.
+    Does the same as <strong>init</strong>=, which should be used in its place.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>init_opts</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Passes arguments to init on bootup.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>scandelay</strong>[=&lt;&#8230;&gt;]
+</dt>
+<dd>
+<p>
+    Pauses for 10 seconds before running devfsd if no argument is
+    specified; otherwise pauses for the number of specified seconds.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>rootdelay</strong>[=&lt;&#8230;&gt;]
+</dt>
+<dt class="hdlist1">
+<strong>rootwait</strong>[=&lt;&#8230;&gt;]
+</dt>
+<dd>
+<p>
+    Pauses for up to 3 seconds (or specified number of seconds) while
+    waiting for root device to appear during initramfs root scanning.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ip</strong>=&lt;dhcp,addr/cidr&gt;
+</dt>
+<dd>
+<p>
+    Normally used to tell the kernel that it should start a network
+    interface which can be specified using <strong>gk.net.iface</strong> kernel parameter.
+    By default, dhcp will be used. You can set a specific IP address using
+    addr/CIDR notation, i.e. <em>1.2.3.4/24</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.dhcp.retries</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will send up to 3 DHCP discovery requests.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.iface</strong>=&lt;interface,macaddr&gt;
+</dt>
+<dd>
+<p>
+    By default we will use the interface named eth0. Use this kernel
+    parameter to specify another interface. You can also specify a MAC
+    address (00:00:00:00:00:00 format) instead of an interface name.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.gw</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Optional gateway. If <strong>ip</strong> is set to dhcp, this kernel parameter will
+    be ignored.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.routes</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Optional additional routes. If <strong>ip</strong> is set to dhcp, this kernel
+    parameter will be ignored.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.timeout.dad</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will wait up to 10 seconds for IPv6&#8217;s DAD to complete.
+    At the moment, we only wait for DAD while bringing down an interface
+    to prevent a race condition.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.timeout.deconfiguration</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will wait up to 10 seconds while bringing down an
+    interface to prevent a race condition.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.timeout.dhcp</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will wait up to 10 seconds for a DHCP server reply.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.net.timeout.interface</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will wait up to 10 seconds for interface to show up.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.udev.debug</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    This boolean option allows you to run udevd in debug mode. Output
+    will be logged to <em>/run/initramfs/udevd.log</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.udev.timeout</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default we will wait up to 120 seconds (UDEV default) for
+    UDEV event queue to become empty.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.prompt.timeout</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+By default a prompt within genkernel initramfs like shown when set
+<strong>root</strong> could not be found will never timeout. Use this option to set
+a timeout.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">When <strong>dosshd</strong> is used, <strong>gk.prompt.timeout</strong> will be set to 30 seconds
+when not set. This will allow remote user to provide answer through
+<strong>GK_PROMPT_FILE</strong> which is set to <em>/tmp/current_prompt</em> by default.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>dosshd</strong>
+</dt>
+<dd>
+<p>
+    Will bring up an interface and start a SSH daemon within initramfs
+    allowing to remotely unlock encrypted devices or just for debugging
+    purpose. See <strong>ip</strong> option for how to configure network.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.sshd.port</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default, sshd will listen on port 22.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.sshd.wait</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Wait X seconds after setting up sshd, useful when you want to login
+    (and thus pause boot process) before booting real system.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>nfsroot</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    If present,  the initrd will try to mount a livecd from that
+    location. Otherwise the location will be deduced from the DCHP
+    request (option root-path).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>dolvm</strong>
+</dt>
+<dd>
+<p>
+    Activate LVM volumes on bootup.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>lvmraid</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Specify RAID devices to set up before the activation of LVM volumes.
+    Implies option <strong>dolvm</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>domdadm</strong>
+</dt>
+<dd>
+<p>
+    Scan for RAID arrays on bootup.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>dozfs</strong>[=cache,force]
+</dt>
+<dd>
+<p>
+    Scan for bootable ZFS pools on bootup. Optionally use cachefile or force import if
+    necessary or perform both actions.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>dobtrfs</strong>
+</dt>
+<dd>
+<p>
+    Scan for attached Btrfs devices on bootup.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>domultipath</strong>
+</dt>
+<dd>
+<p>
+    Activate Multipath on bootup.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>doscsi</strong>
+</dt>
+<dd>
+<p>
+    Activate SCSI devices on bootup, necessary when SCSI support is
+    compiled as modules and you&#8217;re using SCSI or SATA devices.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>keymap</strong>=<em>MAP</em>
+</dt>
+<dd>
+<p>
+    Set keymap to <em>MAP</em>, e.g. <strong>keymap</strong>=de.
+    For valid values of <em>MAP</em> please see
+    <em>/usr/share/genkernel/defaults/keymaps/</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>dokeymap</strong>
+</dt>
+<dd>
+<p>
+    Use keymap.  Usage of <strong>keymap</strong>= implies this option, already.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>rootfstype</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Specify the file system type to mount the real root filesystem as.
+    This can be useful when support for ext2/ext3/ext4 are
+    in competition or used filesystem was not built into kernel.
+    Default is "auto".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>docache</strong>
+</dt>
+<dt class="hdlist1">
+<strong>nocache</strong>
+</dt>
+<dd>
+<p>
+    Enables/disables caching of CD contents in RAM.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>subdir</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    switch_root into "&lt;CHROOT&gt;/&lt;SUBDIR&gt;" instead of "&lt;CHROOT&gt;/".
+    &lt;CHROOT&gt; is "/newroot" (or "/union") usually.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>quiet_genkernel</strong>
+</dt>
+<dd>
+<p>
+    Do not print anything but error and warning messages during
+    the execution of the initramfs init scripts.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>quiet</strong>
+</dt>
+<dd>
+<p>
+    Implies <strong>quiet_genkernel</strong>, but also recognized by the kernel to
+    suppress kernel messages.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>debug</strong>
+</dt>
+<dd>
+<p>
+    Drop into a debug shell early in the process.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.bootfont.disabled</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default, if a bootfont is embedded within initramfs, genkernel
+    will load that font. This boolean option allows you to disable
+    loading of the user embedded bootfont.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.hw.load-all</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default, genkernel loads various module groups (nvme, sata,
+    scsi, pata, usb&#8230;) until block device specified in <strong>root</strong> parameter
+    becomes available. This boolean option allows you to force
+    loading of all module groups regardless whether root device is
+    already available.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.hw.use-modules_load</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default, genkernel relies on UDEV&#8217;s capability to load required
+    kernel modules. This boolean option allows you to force old module
+    loading depending on modules_load file until <strong>root</strong> device becomes
+    available.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.log.disabled</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    By default, any shown message and external command calls will be logged
+    to <em>/run/initramfs/init.log</em>. This boolean option allows you to
+    disable logging for some reason.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>gk.userinteraction.disabled</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+By default, genkernel will prompt on errors. In case this is not wanted
+or desired, e.g. for a kiosk system, this boolean option will disable
+any prompting, including the rescue shell.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Because no user interaction is possible when this option is set,
+system will automatically reboot on error after a timeout.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>noload</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+List of modules to skip loading.
+Separate using commas or spaces.
+</p>
+</dd>
+</dl></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">This option has only an effect when <strong>gk.hw.use-modules_load</strong> is
+enabled.</td>
+</tr></table>
+</div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>doload</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    List of modules which should always be loaded.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>domodules</strong>
+</dt>
+<dt class="hdlist1">
+<strong>nomodules</strong>
+</dt>
+<dd>
+<p>
+    Enables/disables loading of modules in general.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>CONSOLE</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>console</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Override location of console, default is "/dev/console".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>part</strong>[=&lt;0,1&gt;]
+</dt>
+<dt class="hdlist1">
+<strong>partitionable</strong>
+</dt>
+<dd>
+<p>
+    Enable/Disable partitionable RAIDs (metadata 0.x) during auto-run.
+    Standalone <strong>part</strong> and <strong>partitionable</strong> keywords for kernel compatability.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>iscsi_initiatorname</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_target</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_tgpt</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_address</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_port</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_username</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_password</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_username_in</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_password_in</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_debug</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>iscsi_noibft</strong>
+</dt>
+<dd>
+<p>
+    Specify iSCSI parameters.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>unionfs</strong>
+</dt>
+<dt class="hdlist1">
+<strong>nounionfs</strong>
+</dt>
+<dd>
+<p>
+    Enables/disables UnionFS.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>aufs</strong>
+</dt>
+<dd>
+<p>
+    Enables support for AUFS (if available in the kernel).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>aufs.modules</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Use an alternate location for filesystem overlays to be added on top of
+    the livecd and below the writable tmpfs.  Default is /modules/.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>overlayfs</strong>
+</dt>
+<dd>
+<p>
+    Enables support for Overlayfs (if available in the kernel).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>overlayfs.modules</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Use an alternate location for filesystem overlays to be added on top of
+    the livecd and below the writable tmpfs.  Default is /modules/
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>rootflags</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Additional flags to mount the real root system with.
+    For example <strong>rootflags</strong>=noatime would make "-o ro,noatime".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>real_rootflags</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Legacy kernel parameter from kernel-2.4 initrd.
+    Does the same as <strong>rootflags</strong>=, which should be used in its place.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>real_resume</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>resume</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>noresume</strong>
+</dt>
+<dd>
+<p>
+    <strong>noresume</strong> disables any default resume parameters. <strong>resume</strong> and
+    <strong>real_resume</strong> specify a device via LABEL or UUID to use for for loading a
+    TuxOnICE, SWSUSP or Suspend2 resume image.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>cdroot</strong>[=&lt;&#8230;&gt;]
+</dt>
+<dt class="hdlist1">
+<strong>cdroot_type</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>cdroot_marker</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Used for LiveCDs. <strong>cdroot</strong> without arguments will cause the initramfs to
+    scan all devices for a LiveCD. An argument to <strong>cdroot</strong> will cause it to
+    scan only that device. A LiveCD is any device containing a file with the
+    name &amp; Path of <strong>cdroot_marker</strong> (default of "/livecd"). <strong>cdroot_type</strong>
+    (default of "auto") is the filesystem type to use while mounting devices
+    to check. On success, the LiveCD will be mounted at $CDROOT_PATH.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>loop</strong>=&lt;&#8230;&gt;
+</dt>
+<dt class="hdlist1">
+<strong>looptype</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Used for LiveCDs. After mounting the LiveCD or ISO, look for a file at
+    <strong>loop</strong>=path to use as a loopback image for the main type. Mount it with
+    filesystem type <strong>looptype</strong>. Possible values for <strong>looptype</strong>: normal,
+    squashfs, gcloop, zisofs, noloop, sgimips. If <strong>looptype</strong> is not specified,
+    a guess is made, based on the name or extension of <strong>loop</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>isoboot</strong>=&lt;&#8230;&gt;
+</dt>
+<dd>
+<p>
+    Loop-mount an ISO file from the boot device to get the filesystem image.
+    Useful with chain-loading environments and USB keys.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initramfs_mounts">initramfs.mounts</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>By default, genkernel&#8217;s initramfs will only mount <strong>root</strong> device. But
+sometimes additional mounts are required before initramfs can switch to
+real root (for example on systems with a seperate <em>/usr</em> mount).</p></div>
+<div class="paragraph"><p>Therefore genkernel package contains <em>/etc/initramfs.mounts</em> file which
+will allow you to specify additional mounts which should be mounted before
+initramfs will switch to real root.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">This file will not be included in initramfs. Instead, booted initramfs
+will check for this file on specified <strong>root</strong> device.</td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_netbooting">NETBOOTING</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The initrd scripts have limited support for network booting.   This is
+activated if the <strong>ip</strong>=&lt;&#8230;&gt; kernel parameter was given. Please refer to
+the genkernel guide at <em>https://wiki.gentoo.org/wiki/Genkernel</em> for more
+information.</p></div>
+<div class="paragraph"><p>The initrd scripts will extract any *.tar.gz files found in the <em>/add</em>
+directory of the livecd into the root filesystem during boot. This way
+it is easy to extend a netbooted LiveCD i.e. add custom tools, or other
+kernel modules.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reporting_bugs">REPORTING BUGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If you believe you have found a bug in the genkernel scripts,  then
+please file a bug on the Gentoo Linux Bugzilla against product
+"Gentoo Hosted Projects" component "genkernel", i.e. at
+<em>https://bugs.gentoo.org/enter_bug.cgi?product=Gentoo%20Hosted%20Projects&amp;component=genkernel</em>.</p></div>
+<div class="paragraph"><p>If you&#8217;re somewhat unsure if you hit a bug or not, file a bug an we&#8217;ll find out together.
+For general questions the is the gentoo-genkernel mailing list.  You can join the list
+by sending empty mail to <em>gentoo-genkernel+<a href="mailto:subscribe@lists.gentoo">subscribe@lists.gentoo</a>.org</em>.</p></div>
+<div class="paragraph"><p>We cannot assist you with kernel compilation failures unless they are
+caused by a genkernel bug.</p></div>
+<div class="paragraph"><p>Kernel issues for Gentoo-supported kernels, including compilation failures
+should go to <em>https://bugs.gentoo.org/</em> and should be assigned to <em>kernel@gentoo.org</em>.</p></div>
+<div class="paragraph"><p>Please check if an existing bug documents the same issue before opening
+a new bug. Issues for kernel sources not supported by Gentoo should go
+to their relevant authors.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authors">AUTHORS</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Tim Yamin &lt;<a href="mailto:plasmaroo@gentoo.org">plasmaroo@gentoo.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+Eric Edgar &lt;<a href="mailto:rocket@gentoo.org">rocket@gentoo.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+Chris Gianelloni &lt;<a href="mailto:wolf31o2@gentoo.org">wolf31o2@gentoo.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+Sebastian Pipping &lt;<a href="mailto:sebastian@pipping.org">sebastian@pipping.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+Robin H. Johnson &lt;<a href="mailto:robbat2@gentoo.org">robbat2@gentoo.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+Thomas Deutschmann &lt;<a href="mailto:whissi@gentoo.org">whissi@gentoo.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+NFS Support by Thomas Seiler &lt;<a href="mailto:thseiler@gmail.com">thseiler@gmail.com</a>&gt;
+</p>
+</li>
+<li>
+<p>
+GnuPG 1.x integration by dacook &lt;<a href="mailto:schism@subverted.org">schism@subverted.org</a>&gt;
+</p>
+</li>
+<li>
+<p>
+MDADM integration by Matthias Dahl &lt;<a href="mailto:ua_bugz_gentoo@mortal-soul.de">ua_bugz_gentoo@mortal-soul.de</a>&gt;
+</p>
+</li>
+<li>
+<p>
+ZFS integration by Richard Yao &lt;<a href="mailto:ryao@cs.stonybrook.edu">ryao@cs.stonybrook.edu</a>&gt;
+</p>
+</li>
+<li>
+<p>
+AUFS/Overlayfs by Zero_Chaos &lt;<a href="mailto:zerochaos@gentoo.org">zerochaos@gentoo.org</a>&gt; and likewhoa
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><em>/etc/initramfs.mounts</em> - additional required mounts before switching to real root</p></div>
+<div class="paragraph"><p><em>/etc/genkernel.conf</em> - genkernel configuration file</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2020-09-06 00:05:07 CEST
+</div>
+</div>
+</body>
+</html>
